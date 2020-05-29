@@ -23,6 +23,11 @@ button {
     outline: none;
 }
 
+.container {
+    height: 100%;
+    margin-bottom: 30px;
+}
+
 button:hover {
     color: gold;
 }
@@ -39,7 +44,7 @@ select {
 }
 
 footer {
-    position: absolute;
+    position: relative;
     bottom: 30px;
     left: 39%;
     font-size: 24px;

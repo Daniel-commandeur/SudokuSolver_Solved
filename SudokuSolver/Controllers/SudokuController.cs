@@ -39,10 +39,22 @@ namespace SudokuSolver.Controllers
             TempData["sudoku"] = Model;
             return RedirectToAction("Sudoku");
         }
-
-        public ActionResult ChangeSudoku(int sudokuNumber = 2)
+        
+        [HttpPost]
+        public ActionResult ChangeSudoku()
         {
+            
+            int sudokuNumber = (int)TempData["sudokunumber"];
             TempData["sudoku"] = new SudokuModel { Cells = SudokuList.ElementAt(sudokuNumber).Cells, SudokuId = sudokuNumber };
+            return RedirectToAction("Sudoku");
+        }
+
+        [HttpPost]
+        public ActionResult ChangeSudoku([Bind(Include ="SudokuId")]SudokuModel sudoku)
+        {
+            //does the sudoku model exist?
+            var x = sudoku;
+
             return RedirectToAction("Sudoku");
         }
 
