@@ -13,10 +13,29 @@ namespace SudokuSolver.Controllers
         private Solver solver = new Solver();
         private SudokuModel sudokuModel = new SudokuModel();
         private IEnumerable<Sudoku> SudokuList = Sudokus.MockData();
+        
 
 
         // GET: Sudoku
-        public ActionResult Sudoku()
+        //public ActionResult Sudoku()
+        //{          
+
+        //    if (TempData["sudoku"] != null)
+        //    {
+        //        sudokuModel = TempData["sudoku"] as SudokuModel;
+        //    }
+
+        //    sudokuModel.Sudokus = SudokuList;
+
+        //    if (sudokuModel.Cells == null)
+        //    {
+        //        sudokuModel.Cells = SudokuList.ElementAt(0).Cells;
+        //    }
+
+        //    return View(sudokuModel);
+        //}
+
+        public ActionResult Sudoku(int? id)
         {
             if (TempData["sudoku"] != null)
             {
@@ -25,10 +44,14 @@ namespace SudokuSolver.Controllers
 
             sudokuModel.Sudokus = SudokuList;
 
+            int sudokuNumber = id ?? 0;
+
             if (sudokuModel.Cells == null)
             {
-                sudokuModel.Cells = SudokuList.ElementAt(0).Cells;
+                sudokuModel.Cells = SudokuList.ElementAt(sudokuNumber).Cells;
             }
+
+            sudokuModel.SudokuId = sudokuNumber;
 
             return View(sudokuModel);
         }
@@ -39,21 +62,11 @@ namespace SudokuSolver.Controllers
             TempData["sudoku"] = Model;
             return RedirectToAction("Sudoku");
         }
-        
-        [HttpPost]
-        public ActionResult ChangeSudoku()
-        {
-            
-            int sudokuNumber = (int)TempData["sudokunumber"];
-            TempData["sudoku"] = new SudokuModel { Cells = SudokuList.ElementAt(sudokuNumber).Cells, SudokuId = sudokuNumber };
-            return RedirectToAction("Sudoku");
-        }
 
-        [HttpPost]
-        public ActionResult ChangeSudoku([Bind(Include ="SudokuId")]SudokuModel sudoku)
+        public ActionResult ChangeSudoku(int? id)
         {
-            //does the sudoku model exist?
-            var x = sudoku;
+            int sudokuNumber = id ?? 0;
+            TempData["sudoku"] = solver.Create(SudokuList.ElementAt(sudokuNumber).Cells);
 
             return RedirectToAction("Sudoku");
         }

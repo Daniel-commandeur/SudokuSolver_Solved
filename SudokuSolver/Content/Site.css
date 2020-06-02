@@ -26,6 +26,7 @@ button {
 .container {
     height: 100%;
     margin-bottom: 30px;
+    overflow:visible;
 }
 
 button:hover {
@@ -39,6 +40,7 @@ button:active {
 select {
     width: 150px;
     text-align-last: center;
+    /*text-align: right;*/
     padding-right: 29px;
     direction: rtl;
 }
@@ -97,6 +99,7 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+    padding: 0px;
 }
 
 input[type='number'] {
@@ -104,10 +107,17 @@ input[type='number'] {
 }
 
 .cell {
-    height: 75px;
     width: 75px;
+    height: 75px;
     text-align: center;
     font-size: 50px;
+    border: 1px;
+    border-collapse: collapse;
+}
+
+.gameContainer{
+    width: 100%;
+    min-width: 900px;
 }
 
 .pageHeader {
@@ -122,7 +132,7 @@ input[type='number'] {
 .sudokuSidebar {
     width: 25%;
     float: left;
-    height: 693px;
+    height: 704px;
     background-color: lightgray;
 }
 
@@ -141,17 +151,27 @@ input[type='number'] {
     margin-top: 30px;
 }
 
-/*#sudokuTable > tr > td:nth-child(3) {
-    border-right: 3px black solid;
-}*/
-
-#thickBorder tbody > tr > td:nth-child(3), 
-#thickBorder tbody > tr > td:nth-child(6) {
-    border-right: 5px black solid;
+table{
+    border: 5px black solid;
+    border-spacing: 0px;
+    border-collapse: collapse;
 }
-#thickBorder tbody > tr:nth-child(3),
-#thickBorder tbody > tr:nth-child(6)  {
+
+#ThickBorder td {
+    border: none;
+    border-right: 2px black solid;    
+}
+#ThickBorder tr {
+    border: none;
+    border-bottom: 2px black solid;
+}
+
+#ThickBorder tr:nth-of-type(3n){
     border-bottom: 5px black solid;
+}
+
+#ThickBorder tr > td:nth-of-type(3n){
+    border-right: 5px black solid;
 }
 
 
