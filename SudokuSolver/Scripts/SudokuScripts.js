@@ -1,14 +1,15 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
+﻿var activecolor = "white";
+var inactivecolor = "#afafaf";
+
+document.addEventListener('DOMContentLoaded', function () {
     var datacellCollection = document.getElementsByClassName("cell");
     Array.prototype.forEach.call(datacellCollection, RemoveZeros);
 
     function RemoveZeros(currentDataCell) {
         if (currentDataCell.value == "0") {
             currentDataCell.value = "";
-            currentDataCell.disabled = true;
-        } else {
-            currentDataCell.disabled = true;
         }
+        currentDataCell.style.background = inactivecolor;
     }
 });
 
@@ -24,19 +25,23 @@ function Toggle(dataCell) {
     var tag = dataCell.getAttribute("tag");
 
     if (userLevel == "0") {
-        dataCell.disabled = true;
+        dataCell.readOnly = true;
+        dataCell.style.background = inactivecolor;
     }
     else if (userLevel == "1") {
         if (tag != "0") {
             dataCell.value = parseInt(dataCell.getAttribute("tag"));
-            dataCell.disabled = true;
+            dataCell.readOnly = true;
+            dataCell.style.background = inactivecolor;
         }
         if (tag == "0") {
-            dataCell.disabled = false;
+            dataCell.readOnly = false;
+            dataCell.style.background = activecolor;
         }
     }
     else {
-        dataCell.disabled = false;
+        dataCell.readOnly = false;
+        dataCell.style.background = activecolor;
     }
 
 }
@@ -84,4 +89,9 @@ function ValidateInput(dataCell) {
 
 function SelectionChanged(sudokuId) {
     location.href = 'Sudoku/ChangeSudoku/' + sudokuId;
+}
+
+function ResizeCells() {
+    var board = document.getElementById("board");
+    board.style.height = board.style.width;
 }

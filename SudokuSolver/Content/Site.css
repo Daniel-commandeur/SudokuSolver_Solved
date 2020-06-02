@@ -25,6 +25,8 @@ button {
 
 .container {
     height: 100%;
+    width: 100%;
+    padding: 0;
     margin-bottom: 30px;
     overflow:visible;
 }
@@ -63,7 +65,7 @@ footer {
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 200px;
 }
 
 #error {
@@ -107,17 +109,21 @@ input[type='number'] {
 }
 
 .cell {
-    width: 75px;
-    height: 75px;
+    height: 50px;
+    width: 50px;
     text-align: center;
-    font-size: 50px;
+    font-size: x-large;
     border: 1px;
     border-collapse: collapse;
 }
 
 .gameContainer{
     width: 100%;
-    min-width: 900px;
+    min-width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .pageHeader {
@@ -130,17 +136,18 @@ input[type='number'] {
 }
 
 .sudokuSidebar {
-    width: 25%;
+    width: 20%;
+    min-width: 200px;
     float: left;
     height: 704px;
     background-color: lightgray;
 }
 
 .sudokuMainContainer {
-    width: 75%;
-    float: left;
+    width: 80%;
     display: flex;
-    justify-content: center;
+    padding-left: 20px;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -188,6 +195,7 @@ table{
         height: 25px;
         background: white;
         cursor: pointer;
+        border-radius: 3px;
     }
 
     .slider::-moz-range-thumb {
@@ -196,6 +204,7 @@ table{
         height: 25px;
         background: white;
         cursor: pointer;
+        border-radius: 3px;
     }
 
 #ThickBorder td {
@@ -215,4 +224,17 @@ table{
     border-right: 5px black solid;
 }
 
-
+@media only screen and (max-width: 600px) {
+    .sudokuSidebar {
+        width: 100%;
+        display: flex;
+        height: 150px;
+        background-color: lightgray;
+    }
+    .buttonContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 10px;
+    }
+}

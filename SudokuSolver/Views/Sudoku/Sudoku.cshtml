@@ -15,25 +15,25 @@
 
                 <button type="button" onclick="location.href='@Url.Action("CreateSudoku", "Sudoku")'">Create Random</button>
                 <div class="clearfix"></div>
-
-                <label>Allowed User Input</label>
+                
                 <div class="slidecontainer">
-                    <input type="range" onchange="ToggleUserControl(this.value)" min="0" max="2" value="0" step="1" class="slider" id="inputslider"/>
+                    <label>Allowed User Input</label>
+                    <input type="range" onchange="ToggleUserControl(this.value)" min="0" max="2" value="0" step="1" class="slider" id="inputslider" />
                 </div>
                 <div class="clearfix"></div>
 
                 @Html.DropDownListFor(model => model.SudokuId, new SelectList(Model.Sudokus, "SudokuId", "Name", Model.SudokuId), new { @onchange = "SelectionChanged(this.value)" })
             </div>
         </div>
-        <div class="sudokuMainContainer">
-            <table border="1" id="ThickBorder">
+        <div class="sudokuMainContainer" id="board">
+            <table border="1">
                 @for (int i = 0; i < 9; i++)
                 {
-                    <tr>
+                    <tr class="sudokuRow">
                         @for (int j = 0; j < 9; j++)
                         {
                             <td>
-                                @Html.TextBoxFor(m => m.Cells[i][j], new { @class = "cell", @type = "number", @min = "0", @max = "9", @name = (i.ToString() + j.ToString()), @tag = Model.Cells[i][j], @onchange = "ValidateInput(this)" })
+                                @Html.TextBoxFor(m => m.Cells[i][j], new { @class = "cell", @type = "number", @min = "0", @max = "9", @name = (i.ToString() + j.ToString()), @tag = Model.Cells[i][j], @onchange = "ValidateInput(this)", @readonly = "true" })
                             </td>
                         }
                     </tr>
