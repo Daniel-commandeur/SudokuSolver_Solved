@@ -3,99 +3,25 @@
 @{
     ViewBag.Title = "Sudoku";
 }
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var datacellCollection = document.getElementsByClassName("cell");
-        Array.prototype.forEach.call(datacellCollection, RemoveZeros);
-
-        function RemoveZeros(currentDataCell) {
-            if (currentDataCell.value == "0") {
-                currentDataCell.value = "";
-                currentDataCell.disabled = false;
-            } else {
-                currentDataCell.disabled = !fullUserControl;
-            }
-        }
-    });
-    var fullUserControl = false;
-    function ToggleUserControl() {
-        fullUserControl = !fullUserControl;
-        var datacellCollection = document.getElementsByClassName("cell");
-        Array.prototype.forEach.call(datacellCollection, Toggle);
-    }
-
-    function Toggle(dataCell) {
-        var tag = dataCell.getAttribute("tag");
-
-        if (tag != "0") {
-            dataCell.disabled = !dataCell.disabled;
-        }
-        if (tag == "0") {
-            dataCell.disabled = false;
-        }
-    }
-
-    function ValidateInput(dataCell) {
-
-        var tag = dataCell.getAttribute("tag");
-        var val;
-        if (val = parseInt(tag)) {
-            if (val != 0 && !fullUserControl) {
-                dataCell.value = val;
-                //console.log("User input undone");
-                //Disable the cell, this should already be the case.
-                dataCell.disabled = true;
-            }            
-        } else {
-            if (dataCell.value == "0") {
-                dataCell.value = "";
-            }
-        }
-
-        //ClientSide Sudoku validation?
-        if (tag == "0") {
-            var coordinate = dataCell.name;
-            //console.log(name);
-            var row = coordinate.slice(coordinate.indexOf("[")+1,coordinate.indexOf("]"));
-            //console.log(row);
-            var column = coordinate.slice(coordinate.indexOf("]") + 2, coordinate.indexOf("]") + 3);
-            //console.log(column);
-            var datacellRow = new Array();
-            var datacellColumn = new Array();
-            var datacellBLock = new Array();
-            for (var i = 0; i < 9; i++) {
-                if (i != column) {
-                    datacellRow.unshift(document.getElementsByName("Cells[" + row + "][" + i + "]"));
-                }
-                if (i != row) {
-                    datacellColumn.unshift(document.getElementsByName("Cells[" + i + "][" + column + "]"));
-                }
-            }
-            //TODO: Add block array and validation code.
-        }
-    }
-
-    function SelectionChanged(sudokuId) {
-        if (location.href.match(RegExp('Sudoku/Sudoku^'))) {
-            location.pathname = sudokuId;
-        } else {
-            location.pathname = "Sudoku/Sudoku/" + sudokuId;
-        }
-    }
-</script>
 
 <div class="gameContainer">
     @using (Html.BeginForm("Solve", "Sudoku"))
     {
         <div class="sudokuSidebar">
             <div class="buttonContainer">
+
                 <button type="submit">Auto Solve</button>
                 <div class="clearfix"></div>
+
                 <button type="button" onclick="location.href='@Url.Action("CreateSudoku", "Sudoku")'">Create Random</button>
                 <div class="clearfix"></div>
-                <label>Allow User Input</label>
-                <input type="checkbox" onchange="ToggleUserControl()" />
+
+                <label>Allowed User Input</label>
+                <div class="slidecontainer">
+                    <input type="range" onchange="ToggleUserControl(this.value)" min="0" max="2" value="0" step="1" class="slider" id="inputslider"/>
+                </div>
                 <div class="clearfix"></div>
+
                 @Html.DropDownListFor(model => model.SudokuId, new SelectList(Model.Sudokus, "SudokuId", "Name", Model.SudokuId), new { @onchange = "SelectionChanged(this.value)" })
             </div>
         </div>

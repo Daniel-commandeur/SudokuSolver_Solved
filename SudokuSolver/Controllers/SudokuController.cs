@@ -17,41 +17,19 @@ namespace SudokuSolver.Controllers
 
 
         // GET: Sudoku
-        //public ActionResult Sudoku()
-        //{          
-
-        //    if (TempData["sudoku"] != null)
-        //    {
-        //        sudokuModel = TempData["sudoku"] as SudokuModel;
-        //    }
-
-        //    sudokuModel.Sudokus = SudokuList;
-
-        //    if (sudokuModel.Cells == null)
-        //    {
-        //        sudokuModel.Cells = SudokuList.ElementAt(0).Cells;
-        //    }
-
-        //    return View(sudokuModel);
-        //}
-
-        public ActionResult Sudoku(int? id)
+        public ActionResult Sudoku()
         {
             if (TempData["sudoku"] != null)
             {
                 sudokuModel = TempData["sudoku"] as SudokuModel;
             }
 
-            sudokuModel.Sudokus = SudokuList;
-
-            int sudokuNumber = id ?? 0;
+            sudokuModel.Sudokus = SudokuList;            
 
             if (sudokuModel.Cells == null)
             {
-                sudokuModel.Cells = SudokuList.ElementAt(sudokuNumber).Cells;
+                sudokuModel.Cells = SudokuList.ElementAt(0).Cells;
             }
-
-            sudokuModel.SudokuId = sudokuNumber;
 
             return View(sudokuModel);
         }
@@ -66,7 +44,11 @@ namespace SudokuSolver.Controllers
         public ActionResult ChangeSudoku(int? id)
         {
             int sudokuNumber = id ?? 0;
-            TempData["sudoku"] = solver.Create(SudokuList.ElementAt(sudokuNumber).Cells);
+
+            var model = new SudokuModel();
+            model.Cells = SudokuList.ElementAt(sudokuNumber).Cells;
+            model.SudokuId = sudokuNumber;
+            TempData["sudoku"] = model;
 
             return RedirectToAction("Sudoku");
         }
