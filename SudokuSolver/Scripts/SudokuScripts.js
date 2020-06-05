@@ -1,7 +1,4 @@
-﻿var activecolor = "white";
-var inactivecolor = "#afafaf";
-
-document.addEventListener('DOMContentLoaded', function () {
+﻿document.addEventListener('DOMContentLoaded', function () {
     var datacellCollection = document.getElementsByClassName("cell");
     Array.prototype.forEach.call(datacellCollection, RemoveZeros);
 
@@ -9,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentDataCell.value == "0") {
             currentDataCell.value = "";
         }
-        currentDataCell.style.background = inactivecolor;
     }
 });
 
@@ -26,22 +22,18 @@ function Toggle(dataCell) {
 
     if (userLevel == "0") {
         dataCell.readOnly = true;
-        dataCell.style.background = inactivecolor;
     }
     else if (userLevel == "1") {
         if (tag != "0") {
             dataCell.value = parseInt(dataCell.getAttribute("tag"));
             dataCell.readOnly = true;
-            dataCell.style.background = inactivecolor;
         }
         if (tag == "0") {
             dataCell.readOnly = false;
-            dataCell.style.background = activecolor;
         }
     }
     else {
         dataCell.readOnly = false;
-        dataCell.style.background = activecolor;
     }
 
 }

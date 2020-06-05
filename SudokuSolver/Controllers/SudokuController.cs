@@ -34,13 +34,39 @@ namespace SudokuSolver.Controllers
             return View(sudokuModel);
         }
 
+        /// <summary>
+        /// Solve without guessing.
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         public ActionResult Solve(SudokuModel Model)
         {
+            solver.AllowGuessing = false;
             Model.Cells = solver.Solve(Model.Cells);
+            Model.Alert = solver.LastState;
             TempData["sudoku"] = Model;
             return RedirectToAction("Sudoku");
         }
 
+        /// <summary>
+        /// Solve with guessing
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
+        public ActionResult SolveGuessing(SudokuModel Model)
+        {
+            solver.AllowGuessing = true;
+            Model.Cells = solver.Solve(Model.Cells);
+            Model.Alert = solver.LastState;
+            TempData["sudoku"] = Model;
+            return RedirectToAction("Sudoku");
+        }
+
+        /// <summary>
+        /// Change the Sudoku to the given sudoku Id from the Sukokus model containing several Sudokus.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult ChangeSudoku(int? id)
         {
             int sudokuNumber = id ?? 0;
@@ -53,6 +79,10 @@ namespace SudokuSolver.Controllers
             return RedirectToAction("Sudoku");
         }
 
+        /// <summary>
+        /// Creates a randomized sudoku using the empty sudoku.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult CreateSudoku()
         {
             sudokuModel.Cells = solver.Create(SudokuList.ElementAt(2).Cells);

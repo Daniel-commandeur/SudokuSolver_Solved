@@ -1,4 +1,8 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿:root {
+    --itvitae-blue: #01A7BD;
+}
+
+/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -11,11 +15,16 @@ h2 {
     font-size: 36px;
 }
 
+#solveLabel {
+    background-color: var(--itvitae-blue);
+    color: white;
+}
+
 button {
     width: 150px;
     height: 75px;
     margin-bottom: 15px;
-    background-color: #01A7BD;
+    background-color: var(--itvitae-blue);
     border-radius: 30px;
     color: white;
     font-size: 16px;
@@ -28,7 +37,6 @@ button {
     width: 100%;
     padding: 0;
     margin-bottom: 30px;
-    overflow:visible;
 }
 
 button:hover {
@@ -39,18 +47,12 @@ button:active {
     border-style: none !important;
 }
 
-select {
-    width: 150px;
-    text-align-last: center;
-    /*text-align: right;*/
-    padding-right: 29px;
-    direction: rtl;
-}
+
 
 footer {
     position: relative;
     bottom: 30px;
-    left: 39%;
+    text-align: center;
     font-size: 24px;
 }
 
@@ -72,12 +74,6 @@ textarea {
     color: red;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -85,15 +81,9 @@ textarea {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 form {
     margin-top: 30px;
+    height: 100%;
 }
 
 
@@ -108,6 +98,65 @@ input[type='number'] {
     -moz-appearance: textfield;
 }
 
+input[type=number]:read-only {
+    background-color: #555555;
+    color: white;
+}
+
+input[type="number"]:-moz-read-only {
+    background-color: #555555;
+    color: white;
+}
+
+.dropdownlistcontainer {
+    align-content: center;
+    align-items: center;
+}
+
+select {
+    width: 150px;
+    height: 75px;
+    border-radius: 35px;
+    padding-right: 39px;
+    text-align: center;
+    direction: rtl;
+    background-color: var(--itvitae-blue);
+    color: white;
+    border-left-color: gray;
+    border-top-color: gray;
+    border-right-color: black;
+    border-bottom-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
+    select::-ms-expand {
+        display: none;
+    }
+
+    select:visited {
+        border: none;
+    }
+
+    select:active {
+        border: none;
+    }
+
+    select:focus {
+        border: none;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    select > option:active {
+        border-color: aqua;
+    }
+
+    select > option:last-of-type {
+        border-bottom-right-radius: 35px;
+        border-bottom-left-radius: 35px;
+    }
+
 .cell {
     height: 50px;
     width: 50px;
@@ -117,19 +166,25 @@ input[type='number'] {
     border-collapse: collapse;
 }
 
-.gameContainer{
+.gameContainer {
     width: 100%;
+    height: 100%;
     min-width: 600px;
+    height: auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    align-content: stretch;
+    vertical-align: central;
 }
 
 .pageHeader {
     width: 100%;
     height: 100px;
-    background-color: #12A8C0;
+    margin: 0px;
+    padding: 0px;
+    background-color: var(--itvitae-blue);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,39 +192,67 @@ input[type='number'] {
 
 .sudokuSidebar {
     width: 20%;
+    margin-right: 10px;
     min-width: 200px;
     float: left;
-    height: 704px;
+    height: 600px;
     background-color: lightgray;
 }
 
 .sudokuMainContainer {
-    width: 80%;
+    width: calc(75%-1px);
+    min-width: 450px;
     display: flex;
-    padding-left: 20px;
-    justify-content: flex-start;
+    float: left;
+    margin-top: calc(10%);
+    justify-content: center;
+    align-self: center;
     align-items: center;
 }
 
 .buttonContainer {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     margin-top: 30px;
 }
 
-table{
+    .buttonContainer button {
+        border-left-color: gray;
+        border-top-color: gray;
+        border-right-color: black;
+        border-bottom-color: black;
+        border-style: solid;
+        border-width: 2px;
+    }
+
+table {
     border: 5px black solid;
     border-spacing: 0px;
     border-collapse: collapse;
 }
 
-.slidecontainer{
+.slidecontainer {
     width: 150px;
-    border-radius: 10px;
+    height: 75px;
+    font-weight: bold;
+    color: white;
+    border-left-color: gray;
+    border-top-color: gray;
+    border-right-color: black;
+    border-bottom-color: black;
+    border-style: solid;
+    border-width: 2px;
+    text-align: center;
+    border-radius: 30px;
     padding: 5px;
-    background:#12A8C0;
+    background: #12A8C0;
     margin-bottom: 10px;
+}
+
+.slidebar {
+    background-color: aqua;
 }
 
 .slider {
@@ -179,14 +262,14 @@ table{
     height: 25px;
     outline: none;
     background: #12A8C0;
-    opacity: 1;
+    opacity: 0.8;
     -webkit-transition: .2s;
     transition: opacity .2s;
 }
 
-.slider:hover{
-    opacity: 0.6;
-}
+    .slider:hover {
+        opacity: 0.6;
+    }
 
     .slider::-webkit-slider-thumb {
         -webkit-appearance: none;
@@ -209,32 +292,62 @@ table{
 
 #ThickBorder td {
     border: none;
-    border-right: 2px black solid;    
+    border-right: 2px black solid;
 }
+
 #ThickBorder tr {
     border: none;
     border-bottom: 2px black solid;
 }
 
-#ThickBorder tr:nth-of-type(3n){
-    border-bottom: 5px black solid;
-}
+    #ThickBorder tr:nth-of-type(3n) {
+        border-bottom: 5px black solid;
+    }
 
-#ThickBorder tr > td:nth-of-type(3n){
-    border-right: 5px black solid;
-}
+    #ThickBorder tr > td:nth-of-type(3n) {
+        border-right: 5px black solid;
+    }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 750px) {
+    .pageHeader {
+        height: 50px;
+        min-width: 600px;
+        display: flex;
+    }
+
+    .form {
+        margin-top: 10px;
+    }
+
+    .sudokuMainContainer {
+        margin-left: 10%;
+        margin-top: 10px;
+    }
+
     .sudokuSidebar {
         width: 100%;
         display: flex;
-        height: 150px;
+        flex-wrap: wrap;
+        height: 200px;
         background-color: lightgray;
     }
+
+    .slidecontainer,
+    button {
+        margin-left: 10px;
+    }
+
+    .dropdownlistcontainer {
+        margin-left: 10px;
+    }
+
     .buttonContainer {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        padding-left: 10px;
+        padding-right: 10px;
         margin-top: 10px;
     }
 }

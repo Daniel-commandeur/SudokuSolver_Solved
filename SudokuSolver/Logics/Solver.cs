@@ -28,6 +28,7 @@ namespace SudokuSolver.Logics
         public bool AllowGuessing { get; set; } = true;
         public int  IterationLimit = 10000;
         private int Iterations = 0;
+        public string LastState = string.Empty;
 
         public int[][] Solve(int[][] sudoku)
         {
@@ -38,14 +39,14 @@ namespace SudokuSolver.Logics
             Stopwatch sw = Stopwatch.StartNew();
             SolveState s = SolveBoard(ref board); sw.Stop();
             Trace.WriteLine($"Took {sw.ElapsedMilliseconds} milliseconds, and {Iterations} iterations.");
-            
+            LastState = s.ToString();
             if ((s & SolveState.Solved) == SolveState.Solved)
             {
                 Printer.PrintBoard(board);
                 Trace.WriteLine($"Solved it! ({s})");
+                
                 return board.Unload();
             }
-            
             Trace.WriteLine($"Failed to solve.. ({s})");  
             return sudoku;
         }
