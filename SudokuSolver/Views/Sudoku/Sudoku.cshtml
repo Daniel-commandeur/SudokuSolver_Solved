@@ -1,7 +1,7 @@
 ﻿@model SudokuSolver.Models.SudokuModel
 
 @{
-    ViewBag.Title = "Sudoku";
+    ViewBag.Title = "Sudoku Solver";
 }
 
 <div class="gameContainer">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="dropdownlistcontainer">
-                    @Html.DropDownListFor(model => model.SudokuId, new SelectList(Model.Sudokus, "SudokuId", "Name", Model.SudokuId), new { @onchange = "SelectionChanged(this.value)" })
+                    @Html.DropDownListFor(model => model.SudokuId, new SelectList(Model.Sudokus, "SudokuId", "Name", Model.SudokuId), null, new { @onchange = "SelectionChanged(this.value)", @onfocus = "console.log('hi')" })
                 </div>
                 <div class="clearfix"></div>
             </div>

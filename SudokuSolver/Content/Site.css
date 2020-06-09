@@ -1,5 +1,9 @@
 ﻿:root {
     --itvitae-blue: #01A7BD;
+    --readonly-background: white;
+    --readonly-color: black;
+    --cell-background: darkgreen;
+    --cell-color: white;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -92,20 +96,24 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
     padding: 0px;
+    background-color: var(--cell-background);
+    color: var(--cell-color);
 }
 
 input[type='number'] {
     -moz-appearance: textfield;
+    background-color: var(--cell-background);
+    color: var(--cell-color);
 }
 
 input[type=number]:read-only {
-    background-color: #555555;
-    color: white;
+    background-color: var(--readonly-background);
+    color: var(--readonly-color);
 }
 
 input[type="number"]:-moz-read-only {
-    background-color: #555555;
-    color: white;
+    background-color: var(--readonly-background);
+    color: var(--readonly-color);
 }
 
 .dropdownlistcontainer {
@@ -114,47 +122,41 @@ input[type="number"]:-moz-read-only {
 }
 
 select {
+    /*Text styles*/
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    direction: rtl;
+    color: white;
+    /*Others*/
+
     width: 150px;
     height: 75px;
     border-radius: 35px;
-    padding-right: 39px;
-    text-align: center;
-    direction: rtl;
+    /*padding-right: 39px;*/
     background-color: var(--itvitae-blue);
-    color: white;
     border-left-color: gray;
     border-top-color: gray;
     border-right-color: black;
     border-bottom-color: black;
     border-style: solid;
     border-width: 2px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    /*¿que?*/
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
 }
-
-    select::-ms-expand {
-        display: none;
-    }
-
-    select:visited {
-        border: none;
-    }
-
-    select:active {
-        border: none;
-    }
-
     select:focus {
         border: none;
-        border-bottom-right-radius: 0px;
-        border-bottom-left-radius: 0px;
+        border-radius: 0px;
+        text-align: center;
     }
 
-    select > option:active {
-        border-color: aqua;
-    }
-
-    select > option:last-of-type {
-        border-bottom-right-radius: 35px;
-        border-bottom-left-radius: 35px;
+    /*IE support?*/
+    select::-ms-expand{
+        display: none;
     }
 
 .cell {
@@ -165,6 +167,7 @@ select {
     border: 1px;
     border-collapse: collapse;
 }
+
 
 .gameContainer {
     width: 100%;

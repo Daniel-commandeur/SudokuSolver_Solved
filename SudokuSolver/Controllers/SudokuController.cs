@@ -13,8 +13,6 @@ namespace SudokuSolver.Controllers
         private Solver solver = new Solver();
         private SudokuModel sudokuModel = new SudokuModel();
         private IEnumerable<Sudoku> SudokuList = Sudokus.MockData();
-        
-
 
         // GET: Sudoku
         public ActionResult Sudoku()
@@ -24,7 +22,7 @@ namespace SudokuSolver.Controllers
                 sudokuModel = TempData["sudoku"] as SudokuModel;
             }
 
-            sudokuModel.Sudokus = SudokuList;            
+            sudokuModel.Sudokus = SudokuList;
 
             if (sudokuModel.Cells == null)
             {
@@ -42,8 +40,8 @@ namespace SudokuSolver.Controllers
         public ActionResult Solve(SudokuModel Model)
         {
             solver.AllowGuessing = false;
-            Model.Cells = solver.Solve(Model.Cells);
             Model.Alert = solver.LastState;
+            Model.Cells = solver.Solve(Model.Cells);
             TempData["sudoku"] = Model;
             return RedirectToAction("Sudoku");
         }
@@ -56,9 +54,22 @@ namespace SudokuSolver.Controllers
         public ActionResult SolveGuessing(SudokuModel Model)
         {
             solver.AllowGuessing = true;
-            Model.Cells = solver.Solve(Model.Cells);
             Model.Alert = solver.LastState;
-            TempData["sudoku"] = Model;
+            Model.Cells = solver.Solve(Model.Cells);
+            if(solver.LastState != SolveState.Impossible.ToString())
+            {
+                TempData["sudoku"] = Model;
+            }
+            else
+            {
+                TempData["sudoku"] = new SudokuModel()
+                {
+                    Alert = solver.LastState,
+                    Cells = SudokuList.ElementAt(Model.SudokuId).Cells,
+                    Sudokus = SudokuList,
+                    SudokuId = Model.SudokuId
+                };
+            }
             return RedirectToAction("Sudoku");
         }
 

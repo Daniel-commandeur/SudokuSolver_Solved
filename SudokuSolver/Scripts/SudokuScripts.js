@@ -49,6 +49,8 @@ function ValidateInput(dataCell) {
     //ClientSide Sudoku validation?
     if (tag == "0") {
         var coordinate = dataCell.name;
+
+        var val = dataCell.value;
         //console.log(name);
         var row = coordinate.slice(coordinate.indexOf("[") + 1, coordinate.indexOf("]"));
         //console.log(row);
@@ -59,23 +61,47 @@ function ValidateInput(dataCell) {
         var datacellBLock = new Array();
         for (var i = 0; i < 9; i++) {
             if (i != column) {
-                datacellRow.unshift(document.getElementsByName("Cells[" + row + "][" + i + "]"));
+                datacellRow.unshift(document.getElementById("Cells_" + row + "__" + i + "_"));
             }
             if (i != row) {
-                datacellColumn.unshift(document.getElementsByName("Cells[" + i + "][" + column + "]"));
+                datacellColumn.unshift(document.getElementById("Cells_" + i + "__" + column + "_"));
             }
         }
         //TODO: Add block array and validation code.
-        var startCol = Math.floor(parseInt(column) / 3);
-        var startRow = Math.floor(parseInt(row) / 3);
-        for (var i = startRow; i < startRow+3; i++) {
-            for (var j = startCol; j < startCol+3; j++) {
+        var startCol = Math.floor(parseInt(column) / 3) * 3;
+        var startRow = Math.floor(parseInt(row) / 3) * 3;
+        for (var i = startRow; i < startRow + 3; i++) {
+            for (var j = startCol; j < startCol + 3; j++) {
                 if (!(i == row && j == column)) {
-                    datacellBLock.unshift(document.getElementsByName("Cells[" + i + "][" + j + "]"));
+                    datacellBLock.unshift(document.getElementById("Cells_" + i + "__" + j + "_"));
                 }
             }
         }
-        console.log(datacellBLock);
+
+        var datacellCollection = datacellBLock.concat(datacellColumn, datacellRow);
+
+        var isUnique = true;
+
+        if (val != "") {
+            //Check for double numbers.
+            datacellCollection.forEach(cell => {
+                if (val == cell.value) {
+                    isUnique = false;
+                    cell.style.color = "deeppink";
+                    if (val != 0) {
+                        cell.style.backgroundColor = "pink";
+                    }
+                } else {
+                    cell.style.color = "";
+                    cell.style.backgroundColor = "";
+                }
+            });
+        }
+        if (!isUnique) {
+            dataCell.style.color = "red";
+        } else {
+            dataCell.style.color = "";
+        }
     }
 }
 
